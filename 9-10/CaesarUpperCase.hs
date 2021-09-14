@@ -2,18 +2,24 @@ module Caesar where
 
 import Data.Char
 
-lowers :: String -> Int
-lowers xs = length [x | x <- xs, x >= 'a' && x <= 'z']
+letters :: String -> Int
+letters xs = length [x | x <- xs, (x >= 'a' && x <= 'z') || (x >= 'A' && x <= 'Z')]
 
 let2int :: Char -> Int
-let2int c = ord c - ord 'a'
+let2int c   | isLower c     = ord c - ord 'a'
+            | isUpper c     = ord c - ord 'A'
+            | otherwise     = ord '?'
 
-int2let :: Int -> Char
-int2let n = chr (ord 'a' + n)
+int2Lowerlet :: Int -> Char
+int2Lowerlet n = chr (ord 'a' + n)
+
+int2UpperLet :: Int -> Char
+int2UpperLet n = chr (ord 'A' + n)
 
 shift :: Int -> Char -> Char
-shift n c | isLower c = int2let ((let2int c + n) `mod` 26)
-          | otherwise = c
+shift n c   | isLower c = int2Lowerlet ((let2int c + n) `mod` 26)
+            | isUpper c = int2UpperLet ((let2int c + n) `mod` 26)
+            | otherwise = c
 
 encode :: Int -> String -> String
 encode n xs = [shift n x | x <- xs]
@@ -35,15 +41,14 @@ percent :: Int -> Int -> Float
 percent n m = (fromIntegral n / fromIntegral m) * 100
 
 freqs :: String -> [Float]
-freqs xs = [percent (count x xs) n | x <- ['a'..'z']]
-           where n = lowers xs
+freqs xs = [percent (count x xs + count y xs) n | (x,y) <- zip ['a'..'z'] ['A'..'Z']]
+           where n = letters xs
 
 chisqr :: [Float] -> [Float] -> Float
 chisqr os es = sum [((o - e)^2) / e | (o, e) <- zip os es]
 
 rotate :: Int -> [a] -> [a]
 rotate n xs = drop n xs ++ take n xs
-
 
 count :: Char -> String -> Int
 count x xs = length [x' | x' <- xs, x == x']
