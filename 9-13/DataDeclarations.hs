@@ -21,7 +21,7 @@ occurs m (Node' l n r) = case (compare m n) of
                                 LT -> occurs m l
                                 GT -> occurs m r
 
--- 3. Wait, this does not work? This tree is always 
+-- 3.
 data Tree = Leaf Int | Node Tree Tree
                 deriving (Eq, Ord, Show, Read)
 balance :: [Int] -> Tree
@@ -63,8 +63,19 @@ instance Eq a => Eq (Maybe a) where
     Just x == Just y = x == y
 
 same :: Eq a => [a] -> Bool
-same [] [] = true
+same [] [] = True
 same (x:xs) (y:ys) = (x == y) && (same xs ys)
 
-instance Eq a => Eq [a] where
-    (==) xs ys = same xs ys
+-- Untested instance Eq a => Eq [a]. I was unable to test due to it being defined in the prelude already
+-- Therefor I am also not sure if the second implementation could work.
+
+-- Should work:
+--instance Eq a => Eq [a] where
+--    (==) xs ys = same xs ys
+
+-- Not sure:
+--instance Eq a => Eq [a] where
+--    (==) [] [] = True
+--    (==) (x:xs) (y:ys) = (x==y) && ((==) xs ys)
+
+-- 8. Have to wait for the example.
