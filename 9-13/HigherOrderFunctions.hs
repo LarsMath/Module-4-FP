@@ -19,10 +19,12 @@ filter'' p (x:xs)   | p x       = x : (filter'' p xs)
 
 -- 4.
 all' :: (a -> Bool) -> [a] -> Bool
-all' p = null . filter (not . p)
+all' _ [] = True
+all' p (x:xs) = p x && all' p xs
 
 any' :: (a -> Bool) -> [a] -> Bool
-any' p = not . null . filter p
+any' _ [] = False
+any' p (x:xs) = p x || any' p xs
 
 takeWhile' :: (a -> Bool) -> [a] -> [a]
 takeWhile' _ [] = []

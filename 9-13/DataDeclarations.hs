@@ -62,20 +62,10 @@ instance Eq a => Eq (Maybe a) where
     Nothing == Nothing = True
     Just x == Just y = x == y
 
-same :: Eq a => [a] -> Bool
-same [] [] = True
-same (x:xs) (y:ys) = (x == y) && (same xs ys)
-
--- Untested instance Eq a => Eq [a]. I was unable to test due to it being defined in the prelude already
--- Therefor I am also not sure if the second implementation could work.
-
--- Should work:
 --instance Eq a => Eq [a] where
---    (==) xs ys = same xs ys
-
--- Not sure:
---instance Eq a => Eq [a] where
---    (==) [] [] = True
---    (==) (x:xs) (y:ys) = (x==y) && ((==) xs ys)
+--    [] == []          = True
+--    [x] == []         = False
+--    [] == [y]         = False
+--    (x:xs) == (y:ys)  = (x==y) && ((==) xs ys)
 
 -- 8. Have to wait for the example.
