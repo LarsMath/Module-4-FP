@@ -13,8 +13,9 @@ product' xs = head xs * product' (tail xs)
 
 -- 6.
 last' :: [a] -> a
-last' xs = xs !! (length xs - 1)
+last' = head . reverse
 
 --7.
 init' :: [a] -> [a]
-init' xs = take (length xs - 1) xs
+init' [x] = []
+init' (x:xs) = x : (init' xs)

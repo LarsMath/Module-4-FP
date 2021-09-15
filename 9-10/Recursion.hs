@@ -53,12 +53,13 @@ elem' x ys = if x == (head ys) then True else (elem' x (tail ys))
 -- 6.
 merge :: Ord a => [a] -> [a] -> [a]
 merge xs [] = xs
-merge xs ys = merge ([x | x <- xs, x < pivot] ++ [pivot] ++ [x | x <- xs, x >= pivot]) (tail ys)
-                where pivot = head ys
+merge (x:xs) (y:ys)     | y <= x        =  y : merge (x:xs) ys
+                        | otherwise     =  x : merge xs (y:ys)
 
 -- 7.
 halve :: [a] -> ([a], [a])
-halve xs = (take ((length xs) `div` 2) xs, drop ((length xs) `div` 2) xs) 
+halve xs = (take n xs, drop n xs) 
+                where n = (length xs) `div` 2
 
 msort :: Ord a => [a] -> [a]
 msort [] = []

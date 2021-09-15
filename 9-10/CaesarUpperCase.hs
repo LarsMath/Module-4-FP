@@ -8,7 +8,6 @@ letters xs = length [x | x <- xs, (x >= 'a' && x <= 'z') || (x >= 'A' && x <= 'Z
 let2int :: Char -> Int
 let2int c   | isLower c     = ord c - ord 'a'
             | isUpper c     = ord c - ord 'A'
-            | otherwise     = ord '?'
 
 int2Lowerlet :: Int -> Char
 int2Lowerlet n = chr (ord 'a' + n)

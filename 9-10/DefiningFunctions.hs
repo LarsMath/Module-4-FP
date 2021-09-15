@@ -1,9 +1,7 @@
 -- 1.
 halve :: [a] -> ([a], [a])
-halve [] = ([],[])
-halve [a,b] = ([a],[b])
-halve xs = concatSides [(head xs)] (halve (tail (init xs))) [(last xs)]
-           where concatSides xs (ys,zs) ws = (xs ++ ys, zs ++ ws)
+halve xs = (take n xs, drop n xs)
+                where n = (length xs) `div` 2
 
 -- 2.
 third :: [a] -> a
