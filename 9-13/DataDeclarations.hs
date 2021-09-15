@@ -68,4 +68,4 @@ instance Eq a => Eq (Maybe a) where
 --    [] == [y]         = False
 --    (x:xs) == (y:ys)  = (x==y) && ((==) xs ys)
 
--- 8. Have to wait for the example.
+-- 8. See TautologyChecker.hs
